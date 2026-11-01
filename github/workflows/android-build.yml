@@ -1,0 +1,33 @@
+
+name: CubeEvil4 Android Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Inspect build requirements
+        run: |
+          git status --short
+          ls -la
+          ls -la port/tools
+          ls -la port/android-decomp
+
+      - name: Show build instructions
+        run: |
+          sed -n '1,220p' README.md
+          sed -n '1,220p' port/README.md
+          
